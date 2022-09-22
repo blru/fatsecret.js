@@ -1,1 +1,11 @@
-export const Greeter = (name: string) => `Hello ${name}`;
+import { Client } from "./client/Client"
+import { APIErrorCode } from "./client/APIError"
+
+export default {
+    Client
+}
+
+export {
+    Client,
+    APIErrorCode
+}
