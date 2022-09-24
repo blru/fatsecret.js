@@ -1,29 +1,28 @@
-import Food from "../../structures/Food";
+import BarcodeFood from "../../structures/BarcodeFood";
 import { APIError, APIErrorCode } from "../APIError";
 import BaseClient from "../BaseClient"
 
-export function getFoodFactory(client: BaseClient) {
+export function getFoodFromBarcodeFactory(client: BaseClient) {
     // return function to send request
     return async (params: {
-        foodId: string;
+        barcode: string;
         region?: string;
         language?: string;
     }) => {
         try {
             // send request
-            const response = await client.doRequest("food.get.v2", {
-                food_id: params.foodId,
+            const response = await client.doRequest("food.find_id_for_barcode", {
+                barcode: params.barcode,
                 region: params.region,
                 language: params.language
             });
 
-            // return food as food object
-            return Food.fromJson(response.data["food"]);
-        } catch (err: unknown) {
-            // if couldn't find food because of invalid id return undefined
-            if (err instanceof APIError && err.code === APIErrorCode.INVALID_ID)
-                return;
+            // if no food, return
+            if (response.data["fod_id"]?.["value"] === "0") return;
 
+            // return food as food object
+            return BarcodeFood.fromJson(response.data);
+        } catch (err: unknown) {
             // else, rethrow error
             throw err;
         }

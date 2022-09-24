@@ -4,7 +4,7 @@ import { APIError, APIErrorCode } from "./APIError";
 interface ICredentials {
     clientId: string;
     clientSecret: string;
-    scope: "basic" | "premier" | "barcode" | "localization";
+    scope: ("basic" | "premier" | "barcode" | "localization")[];
 }
 
 export interface IOptions {
@@ -63,7 +63,7 @@ export default class BaseClient {
         // create request form data body
         const formData = new URLSearchParams({
             "grant_type": "client_credentials",
-            "scope": credentials.scope
+            "scope": credentials.scope.join(" ")
         });
 
         // send request

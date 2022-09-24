@@ -23,7 +23,7 @@ export default class Food {
     name?: string;
     type?: "Brand" | "Generic";
     url?: string;
-    servings?: Serving[] = [];
+    servings?: Serving[];
 
     constructor(options: IOptions) {
         // assign options to own properties
