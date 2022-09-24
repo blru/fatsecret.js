@@ -14,6 +14,9 @@ interface IOptions {
     /* a link to the food on fatsecret */
     url?: string;
 
+    /* the name of the food's brand  */
+    brandName?: string;
+
     /* a list of servings for that food */
     servings?: Serving[]
 }
@@ -23,6 +26,7 @@ export default class Food {
     name?: string;
     type?: "Brand" | "Generic";
     url?: string;
+    brandName?: string;
     servings?: Serving[];
 
     constructor(options: IOptions) {
@@ -39,6 +43,7 @@ export default class Food {
         const name = object["food_name"];
         const type = object["food_type"];
         const url = object["food_url"];
+        const brandName = object["brand_name"];
         const servings = (object["servings"]?.serving) || [];
 
         // return instance of Food
@@ -46,6 +51,7 @@ export default class Food {
             id,
             name,
             type,
+            brandName,
             url,
 
             // map servings to instance of Serving
