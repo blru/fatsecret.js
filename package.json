@@ -41,6 +41,7 @@
     "lib/**/*"
   ],
   "dependencies": {
-    "axios": "^0.27.2"
+    "axios": "^0.27.2",
+    "mathjs": "^11.2.1"
   }
 }

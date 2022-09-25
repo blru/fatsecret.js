@@ -1,3 +1,5 @@
+import * as math from "mathjs";
+
 interface IOptions {
     /* serving metadata */
     id?: string;
@@ -46,109 +48,140 @@ export default class Serving {
     measurementDescription?: string;
 
     /* The amount of unit of this serving */
-    metricServingAmount?: number;
-
-    /* the unit for the amount */
-    metricServingUnit?: string;
+    metricServingAmount?: math.Unit;
 
     /* number of serving amounts */
     numberOfUnits?: number;
 
     /* Total calories in kcal */
-    calories?: number;
+    calories?: math.Unit;
 
     /* Total carbohydrate in grams */
-    carbohydrate?: number;
+    carbohydrate?: math.Unit;
 
     /* Protein in grams */
-    protein?: number;
+    protein?: math.Unit;
 
     /* Total fat in grams */
-    fat?: number;
+    fat?: math.Unit;
 
     /* Saturated fat in grams */
-    saturatedFat?: number;
+    saturatedFat?: math.Unit;
 
     /* Polyunsaturated fat in grams */
-    polyunsaturatedFat?: number;
+    polyunsaturatedFat?: math.Unit;
 
     /* Monounsaturated fat in grams */
-    monounsaturatedFat?: number;
+    monounsaturatedFat?: math.Unit;
 
     /* Trans fat in grams */
-    transFat?: number;
+    transFat?: math.Unit;
 
     /* Cholesterol in milligrams */
-    cholesterol?: number;
+    cholesterol?: math.Unit;
 
     /* Sodium in milligrams */
-    sodium?: number;
+    sodium?: math.Unit;
 
     /* Potassium in milligrams */
-    potassium?: number;
+    potassium?: math.Unit;
 
     /* Dietary fiber in grams */
-    fiber?: number;
+    fiber?: math.Unit;
 
     /* Sugar in grams */
-    sugar?: number;
+    sugar?: math.Unit;
 
     /* Added Sugars in grams */
-    addedSugars?: number;
+    addedSugars?: math.Unit;
 
     /* Vitamin D in micrograms */
-    vitaminD?: number;
+    vitaminD?: math.Unit;
 
     /* Vitamin A in micrograms */
-    vitaminA?: number;
+    vitaminA?: math.Unit;
 
     /* Vitamin C in milligrams */
-    vitaminC?: number;
+    vitaminC?: math.Unit;
 
     /* Calcium in milligrams */
-    calcium?: number;
+    calcium?: math.Unit;
 
     /* Iron in milligrams */
-    iron?: number;
+    iron?: math.Unit;
 
     constructor(options: IOptions) {
         // assign options to own properties
         Object.assign(this, options);
+
+        // if metric units provided, set serving size
+        if (options.metricServingAmount && options.metricServingUnit) {
+            this.metricServingAmount = math.unit(
+                options.metricServingAmount,
+                options.metricServingUnit
+            );
+        }
+
+        // create function to convert provided nutrition number to units
+        const toUnit = (unit: string, n?: number) => n ? math.unit(n, unit) : undefined;
+
+        // TODO: Make this look cleaner :3
+        // convert nutritional information as math.js units
+        this.calories = toUnit("kcal", options.calories);
+        this.carbohydrate = toUnit("g", options.carbohydrate);
+        this.protein = toUnit("g", options.protein);
+        this.fat = toUnit("g", options.fat);
+        this.saturatedFat = toUnit("g", options.saturatedFat);
+        this.polyunsaturatedFat = toUnit("g", options.polyunsaturatedFat);
+        this.monounsaturatedFat = toUnit("g", options.monounsaturatedFat);
+        this.transFat = toUnit("g", options.transFat);
+        this.cholesterol = toUnit("mg", options.cholesterol);
+        this.sodium = toUnit("mg", options.sodium);
+        this.potassium = toUnit("mg", options.potassium);
+        this.fiber = toUnit("g", options.fiber);
+        this.sugar = toUnit("g", options.sugar);
+        this.addedSugars = toUnit("g", options.addedSugars);
+        this.vitaminD = toUnit("ug", options.vitaminD);
+        this.vitaminA = toUnit("ug", options.vitaminA);
+        this.vitaminC = toUnit("mg", options.vitaminC);
+        this.calcium = toUnit("mg", options.calcium);
+        this.iron = toUnit("mg", options.iron);
     }
 
     static fromJson(object: any) {
         // ensure object isn't null or undefined
         object = object || {};
 
-        // extract properties
+        // extract properties & convert strings to floats
         const id = object["serving_id"];
         const description = object["serving_description"];
         const url = object["serving_url"];
 
         const measurementDescription = object["measurement_description"];
-        const metricServingAmount = object["metric_serving_amount"];
+        const metricServingAmount = parseFloat(object["metric_serving_amount"]);
         const metricServingUnit = object["metric_serving_unit"];
-        const numberOfUnits = object["number_of_units"];
+        const numberOfUnits = parseFloat(object["number_of_units"]);
 
-        const calories = object["calories"];
-        const carbohydrate = object["carbohydrate"];
-        const protein = object["protein"];
-        const fat = object["fat"];
-        const saturatedFat = object["saturated_fat"];
-        const polyunsaturatedFat = object["polyunsaturated_fat"];
-        const monounsaturatedFat = object["monounsaturated_fat"];
-        const transFat = object["trans_fat"];
-        const cholesterol = object["cholesterol"];
-        const sodium = object["sodium"];
-        const potassium = object["potassium"];
-        const fiber = object["fiber"];
-        const sugar = object["sugar"];
-        const addedSugars = object["added_sugars"];
-        const vitaminD = object["vitamin_d"];
-        const vitaminA = object["vitamin_a"];
-        const vitaminC = object["vitamin_c"];
-        const calcium = object["calcium"];
-        const iron = object["iron"];
+        const calories = parseFloat(object["calories"]);
+        const carbohydrate = parseFloat(object["carbohydrate"]);
+        const protein = parseFloat(object["protein"]);
+        const fat = parseFloat(object["fat"]);
+        const saturatedFat = parseFloat(object["saturated_fat"]);
+        const polyunsaturatedFat = parseFloat(object["polyunsaturated_fat"]);
+        const monounsaturatedFat = parseFloat(object["monounsaturated_fat"]);
+        const transFat = parseFloat(object["trans_fat"]);
+        const cholesterol = parseFloat(object["cholesterol"]);
+        const sodium = parseFloat(object["sodium"]);
+        const potassium = parseFloat(object["potassium"]);
+        const fiber = parseFloat(object["fiber"]);
+        const sugar = parseFloat(object["sugar"]);
+        const addedSugars = parseFloat(object["added_sugars"]);
+        const vitaminD = parseFloat(object["vitamin_d"]);
+        const vitaminA = parseFloat(object["vitamin_a"]);
+        const vitaminC = parseFloat(object["vitamin_c"]);
+        const calcium = parseFloat(object["calcium"]);
+        const iron = parseFloat(object["iron"]);
+
 
         // return instance of Food
         return new Serving({
@@ -157,29 +190,62 @@ export default class Serving {
             url,
 
             measurementDescription,
-            metricServingAmount: parseFloat(metricServingAmount),
+            metricServingAmount: metricServingAmount,
             metricServingUnit,
-            numberOfUnits: parseFloat(numberOfUnits),
+            numberOfUnits: numberOfUnits,
 
-            calories: parseFloat(calories),
-            carbohydrate: parseFloat(carbohydrate),
-            protein: parseFloat(protein),
-            fat: parseFloat(fat),
-            saturatedFat: parseFloat(saturatedFat),
-            polyunsaturatedFat: parseFloat(polyunsaturatedFat),
-            monounsaturatedFat: parseFloat(monounsaturatedFat),
-            transFat: parseFloat(transFat),
-            cholesterol: parseFloat(cholesterol),
-            sodium: parseFloat(sodium),
-            potassium: parseFloat(potassium),
-            fiber: parseFloat(fiber),
-            sugar: parseFloat(sugar),
-            addedSugars: parseFloat(addedSugars),
-            vitaminD: parseFloat(vitaminD),
-            vitaminA: parseFloat(vitaminA),
-            vitaminC: parseFloat(vitaminC),
-            calcium: parseFloat(calcium),
-            iron: parseFloat(iron),
+            calories: calories,
+            carbohydrate: carbohydrate,
+            protein: protein,
+            fat: fat,
+            saturatedFat: saturatedFat,
+            polyunsaturatedFat: polyunsaturatedFat,
+            monounsaturatedFat: monounsaturatedFat,
+            transFat: transFat,
+            cholesterol: cholesterol,
+            sodium: sodium,
+            potassium: potassium,
+            fiber: fiber,
+            sugar: sugar,
+            addedSugars: addedSugars,
+            vitaminD: vitaminD,
+            vitaminA: vitaminA,
+            vitaminC: vitaminC,
+            calcium: calcium,
+            iron: iron,
+        });
+
+
+    }
+    debugLog() {
+        console.table({
+            id: this.id,
+            description: this.description,
+            url: this.url,
+
+            measurementDescription: this.measurementDescription,
+            metricServingAmount: this.metricServingAmount?.format({}),
+            numberOfUnits: this.numberOfUnits,
+
+            calories: this.calories?.format({}),
+            carbohydrate: this.carbohydrate?.format({}),
+            protein: this.protein?.format({}),
+            fat: this.fat?.format({}),
+            saturatedFat: this.saturatedFat?.format({}),
+            polyunsaturatedFat: this.polyunsaturatedFat?.format({}),
+            monounsaturatedFat: this.monounsaturatedFat?.format({}),
+            transFat: this.transFat?.format({}),
+            cholesterol: this.cholesterol?.format({}),
+            sodium: this.sodium?.format({}),
+            potassium: this.potassium?.format({}),
+            fiber: this.fiber?.format({}),
+            sugar: this.sugar?.format({}),
+            addedSugars: this.addedSugars?.format({}),
+            vitaminD: this.vitaminD?.format({}),
+            vitaminA: this.vitaminA?.format({}),
+            vitaminC: this.vitaminC?.format({}),
+            calcium: this.calcium?.format({}),
+            iron: this.iron?.format({}),
         });
     }
 }
