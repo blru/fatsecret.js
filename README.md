@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="https://user-images.githubusercontent.com/44450511/192179431-d308972e-e7cc-4c39-ad80-fcf3efab206c.png" alt="fatsecret.js Logo" />
+  <img height="96px" src="https://user-images.githubusercontent.com/44450511/192179431-d308972e-e7cc-4c39-ad80-fcf3efab206c.png" alt="fatsecret.js Logo" />
 </p>
 <p align="center">
   <a href="https://github.com/IDontLua/fatsecret.js">
