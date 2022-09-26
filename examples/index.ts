@@ -16,20 +16,20 @@ void async function () {
 
     (await client.getFood({ foodId: "1234" }))?.servings?.[0].debugLog();
 
-    // console.log(
-    //     "[get food from barcode] \n",
-    //     await client.getFoodFromBarcode({ barcode: "77567153012" })
-    // );
+    console.log(
+        "[get food from barcode] \n",
+        await client.getFoodFromBarcode({ barcode: "77567153012" })
+    );
 
-    // // TODO: Test for expression with only one result
-    // // TODO: Test for expression with no result
-    // console.log(
-    //     "[get autocomplete] \n",
-    //     await client.getAutocomplete({ expression: "rice" })
-    // );
+    // TODO: Test for expression with only one result
+    // TODO: Test for expression with no result
+    console.log(
+        "[get autocomplete] \n",
+        await client.getAutocomplete({ expression: "rice" })
+    );
 
-    // console.log(
-    //     "[get food search] \n",
-    //     await client.getFoodSearch({ searchExpression: "chicken" })
-    // );
+    console.log(
+        "[get food search] \n",
+        await client.getFoodSearch({ searchExpression: "chicken" })
+    );
 }()
