@@ -148,7 +148,10 @@ export default class Serving {
         this.iron = toUnit("mg", options.iron);
     }
 
-    computeServing(g: number, round?: boolean) {
+    /**
+    * @param {number} roundN - The number of decimals to round values to.
+    **/
+    computeServing(g: number, roundN?: number) {
         // ensure serving has amount in metric units
         if (!this.metricServingAmount) return;
 
@@ -166,7 +169,7 @@ export default class Serving {
             const computedUnit = <math.Unit>math.multiply(multiplyFactor, unit);
 
             // if should round return rounded unit
-            if (round) return Math.round(computedUnit.toNumber());
+            if (roundN) return math.round(computedUnit.toNumber(), roundN);
 
             // else, return computed unit as number
             return computedUnit.toNumber();

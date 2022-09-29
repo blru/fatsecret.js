@@ -11,7 +11,7 @@ const client = new FatSecret.Client({
 
 void async function () {
     (await client.getFood({ foodId: "1234" }))?.computeServing(100)?.debugLog();
-    (await client.getFood({ foodId: "1234" }))?.computeServing(100, true)?.debugLog();
+    (await client.getFood({ foodId: "1234" }))?.computeServing(100, 1)?.debugLog();
 
 
     (await client.getFood({ foodId: "1234" }))?.servings?.[0].debugLog();
