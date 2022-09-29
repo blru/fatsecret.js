@@ -148,6 +148,57 @@ export default class Serving {
         this.iron = toUnit("mg", options.iron);
     }
 
+    computeServing(g: number, round?: boolean) {
+        // ensure serving has amount in metric units
+        if (!this.metricServingAmount) return;
+
+        // compute factor to multiply values by
+        const multiplyFactor = math
+            .unit(g, "g")
+            .divide(this.metricServingAmount)
+
+        // create function for multiplying units to fit factor
+        const factorUnit = (unit?: math.Unit) => {
+            // if no unit, return undefined
+            if (!unit) return;
+
+            // compute unit multiplied by factor
+            const computedUnit = <math.Unit>math.multiply(multiplyFactor, unit);
+
+            // if should round return rounded unit
+            if (round) return Math.round(computedUnit.toNumber());
+
+            // else, return computed unit as number
+            return computedUnit.toNumber();
+        };
+
+        return new Serving({
+            metricServingAmount: g,
+            metricServingUnit: "g",
+            numberOfUnits: 1,
+
+            calories: factorUnit(this.calories),
+            carbohydrate: factorUnit(this.carbohydrate),
+            protein: factorUnit(this.protein),
+            fat: factorUnit(this.fat),
+            saturatedFat: factorUnit(this.saturatedFat),
+            polyunsaturatedFat: factorUnit(this.polyunsaturatedFat),
+            monounsaturatedFat: factorUnit(this.monounsaturatedFat),
+            transFat: factorUnit(this.transFat),
+            cholesterol: factorUnit(this.cholesterol),
+            sodium: factorUnit(this.sodium),
+            potassium: factorUnit(this.potassium),
+            fiber: factorUnit(this.fiber),
+            sugar: factorUnit(this.sugar),
+            addedSugars: factorUnit(this.addedSugars),
+            vitaminD: factorUnit(this.vitaminD),
+            vitaminA: factorUnit(this.vitaminA),
+            vitaminC: factorUnit(this.vitaminC),
+            calcium: factorUnit(this.calcium),
+            iron: factorUnit(this.iron),
+        });
+    }
+
     static fromJson(object: any) {
         // ensure object isn't null or undefined
         object = object || {};
