@@ -21,7 +21,7 @@ export function getFoodFromBarcodeFactory(client: BaseClient) {
             if (response.data["fod_id"]?.["value"] === "0") return;
 
             // return food as food object
-            return BarcodeFood.fromJson(response.data);
+            return BarcodeFood.fromResponse(response.data);
         } catch (err: unknown) {
             // else, rethrow error
             throw err;

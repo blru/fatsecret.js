@@ -18,7 +18,7 @@ export function getFoodFactory(client: BaseClient) {
             });
 
             // return food as food object
-            return Food.fromJson(response.data["food"]);
+            return Food.fromResponse(response.data["food"]);
         } catch (err: unknown) {
             // if couldn't find food because of invalid id return undefined
             if (err instanceof APIError && err.code === APIErrorCode.INVALID_ID)

@@ -1,6 +1,3 @@
-import valueToArray from "../utility/valueToArray";
-import Serving from "./Serving";
-
 interface IOptions {
     /* The unique identifier of a food */
     id?: string;
@@ -16,7 +13,7 @@ export default class BarcodeFood {
 
     // TODO: Add function to get barcode food -> food
 
-    static fromJson(object: any) {
+    static fromResponse(object: any) {
         // ensure object isn't null or undefined
         object = object || {}
 

@@ -202,7 +202,110 @@ export default class Serving {
         });
     }
 
+    // serialize
+    toJson() {
+        return {
+            id: this.id,
+            description: this.description,
+            url: this.url,
+
+            measurementDescription: this.measurementDescription,
+            metricServingAmount: this.metricServingAmount?.toNumber(),
+            metricServingUnit: this.metricServingAmount?.formatUnits(),
+            numberOfUnits: this.numberOfUnits,
+
+            calories: this.calories?.toNumber(),
+            carbohydrate: this.carbohydrate?.toNumber(),
+            protein: this.protein?.toNumber(),
+            fat: this.fat?.toNumber(),
+            saturatedFat: this.saturatedFat?.toNumber(),
+            polyunsaturatedFat: this.polyunsaturatedFat?.toNumber(),
+            monounsaturatedFat: this.monounsaturatedFat?.toNumber(),
+            transFat: this.transFat?.toNumber(),
+            cholesterol: this.cholesterol?.toNumber(),
+            sodium: this.sodium?.toNumber(),
+            potassium: this.potassium?.toNumber(),
+            fiber: this.fiber?.toNumber(),
+            sugar: this.sugar?.toNumber(),
+            addedSugars: this.addedSugars?.toNumber(),
+            vitaminD: this.vitaminD?.toNumber(),
+            vitaminA: this.vitaminA?.toNumber(),
+            vitaminC: this.vitaminC?.toNumber(),
+            calcium: this.calcium?.toNumber(),
+            iron: this.iron?.toNumber(),
+        }
+    }
+
+    // deserialize
     static fromJson(object: any) {
+        // ensure object isn't null or undefined
+        object = object || {};
+
+        // extract properties & convert strings to floats
+        const id = object["id"];
+        const description = object["description"];
+        const url = object["url"];
+
+        const measurementDescription = object["description"];
+        const metricServingAmount = object["metricServingAmount"];
+        const metricServingUnit = object["metricServingUnit"];
+        const numberOfUnits = object["numberOfUnits"];
+
+        const calories = object["calories"];
+        const carbohydrate = object["carbohydrate"];
+        const protein = object["protein"];
+        const fat = object["fat"];
+        const saturatedFat = object["saturatedFat"];
+        const polyunsaturatedFat = object["polyunsaturatedFat"];
+        const monounsaturatedFat = object["monounsaturatedFat"];
+        const transFat = object["transFat"];
+        const cholesterol = object["cholesterol"];
+        const sodium = object["sodium"];
+        const potassium = object["potassium"];
+        const fiber = object["fiber"];
+        const sugar = object["sugar"];
+        const addedSugars = object["addedSugars"];
+        const vitaminD = object["vitaminD"];
+        const vitaminA = object["vitaminA"];
+        const vitaminC = object["vitaminC"];
+        const calcium = object["calcium"];
+        const iron = object["iron"];
+
+
+        // return instance of Food
+        return new Serving({
+            id,
+            description,
+            url,
+
+            measurementDescription: measurementDescription,
+            metricServingAmount: metricServingAmount,
+            metricServingUnit: metricServingUnit,
+            numberOfUnits: numberOfUnits,
+
+            calories: calories,
+            carbohydrate: carbohydrate,
+            protein: protein,
+            fat: fat,
+            saturatedFat: saturatedFat,
+            polyunsaturatedFat: polyunsaturatedFat,
+            monounsaturatedFat: monounsaturatedFat,
+            transFat: transFat,
+            cholesterol: cholesterol,
+            sodium: sodium,
+            potassium: potassium,
+            fiber: fiber,
+            sugar: sugar,
+            addedSugars: addedSugars,
+            vitaminD: vitaminD,
+            vitaminA: vitaminA,
+            vitaminC: vitaminC,
+            calcium: calcium,
+            iron: iron,
+        });
+    }
+
+    static fromResponse(object: any) {
         // ensure object isn't null or undefined
         object = object || {};
 
@@ -268,9 +371,9 @@ export default class Serving {
             calcium: calcium,
             iron: iron,
         });
-
-
     }
+
+
     debugLog() {
         console.table({
             id: this.id,

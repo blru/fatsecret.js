@@ -27,7 +27,7 @@ export default class FoodSearchResults {
         Object.assign(this, options);
     }
 
-    static fromJson(object: any) {
+    static fromResponse(object: any) {
         // ensure object isn't null or undefined
         object = object || {}
 
@@ -45,7 +45,7 @@ export default class FoodSearchResults {
 
             // map servings to instance of Serving
             foods: valueToArray(foods)
-                .map((serving) => Food.fromJson(serving))
+                .map((serving) => Food.fromResponse(serving))
         });
     }
 }

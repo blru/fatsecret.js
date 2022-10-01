@@ -24,7 +24,7 @@ export function getFoodSearchFactory(client: BaseClient) {
             });
 
             // return search results as foodSearchResult object
-            return FoodSearchResults.fromJson(response.data["foods"]);
+            return FoodSearchResults.fromResponse(response.data["foods"]);
         } catch (err: unknown) {
             // else, rethrow error
             throw err;

@@ -52,7 +52,47 @@ export default class Food {
         return foundServing.computeServing(g, roundN);
     }
 
+    toJson() {
+        // return instance of Food
+        return {
+            id: this.id,
+            name: this.name,
+            type: this.type,
+            brandName: this.brandName,
+            url: this.url,
+
+            // map servings to instance of Serving
+            servings: this.servings?.map((serving) => serving.toJson())
+        };
+    }
+
     static fromJson(object: any) {
+        // ensure object isn't null or undefined
+        object = object || {}
+
+        // extract properties
+        const id = object["id"];
+        const name = object["name"];
+        const type = object["type"];
+        const url = object["url"];
+        const brandName = object["brandName"];
+        const servings = (object["servings"]) || [];
+
+        // return instance of Food
+        return new Food({
+            id,
+            name,
+            type,
+            brandName,
+            url,
+
+            // map servings to instance of Serving
+            servings: valueToArray(servings)
+                .map((serving) => Serving.fromJson(serving))
+        });
+    }
+
+    static fromResponse(object: any) {
         // ensure object isn't null or undefined
         object = object || {}
 
@@ -74,7 +114,7 @@ export default class Food {
 
             // map servings to instance of Serving
             servings: valueToArray(servings)
-                .map((serving) => Serving.fromJson(serving))
+                .map((serving) => Serving.fromResponse(serving))
         });
     }
 }
