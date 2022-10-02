@@ -1,5 +1,6 @@
 import FatSecret, { Food } from "../src/main";
 import "dotenv/config";
+import * as math from "mathjs";
 
 const client = new FatSecret.Client({
     credentials: {
@@ -10,11 +11,11 @@ const client = new FatSecret.Client({
 });
 
 void async function () {
-    // (await client.getFood({ foodId: "1234" }))?.computeServing(100)?.debugLog();
+    (await client.getFood({ foodId: "1234" }))?.computeServing(math.unit(174, "g"), 0)?.debugLog();
     // (await client.getFood({ foodId: "1234" }))?.computeServing(100, 1)?.debugLog();
 
 
-    // (await client.getFood({ foodId: "1234" }))?.servings?.[0].debugLog();
+    (await client.getFood({ foodId: "1234" }))?.servings?.[0].debugLog();
 
     // console.log(
     //     "[get food from barcode] \n",
@@ -33,28 +34,28 @@ void async function () {
     //     await client.getFoodSearch({ searchExpression: "chicken" })
     // );
 
-    const foundFood = (await client.getFood({ foodId: "1234" }));
+    // const foundFood = (await client.getFood({ foodId: "1234" }));
 
-    console.log(foundFood);
+    // console.log(foundFood);
 
-    // test serializing and deserializing'
-    const serialized = JSON.stringify(foundFood?.toJson());
+    // // test serializing and deserializing'
+    // const serialized = JSON.stringify(foundFood?.toJson());
 
-    console.log(
-        "[serialized] ",
-        serialized
-    );
-    console.log(
-        "[deserialized] ",
-        Food.fromJson(JSON.parse(serialized))
-    )
+    // console.log(
+    //     "[serialized] ",
+    //     serialized
+    // );
+    // console.log(
+    //     "[deserialized] ",
+    //     Food.fromJson(JSON.parse(serialized))
+    // )
 
-    console.log(
-        "[regular serving] ",
-        foundFood?.servings?.[0].debugLog()
-    );
-    console.log(
-        "[deserialized serving] ",
-        Food.fromJson(JSON.parse(serialized)).servings?.[0].debugLog()
-    )
+    // console.log(
+    //     "[regular serving] ",
+    //     foundFood?.servings?.[0].debugLog()
+    // );
+    // console.log(
+    //     "[deserialized serving] ",
+    //     Food.fromJson(JSON.parse(serialized)).servings?.[0].debugLog()
+    // )
 }()

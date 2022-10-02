@@ -38,7 +38,7 @@ export default class Food {
     /**
     * @param {number} roundN - The number of decimals to round values to.
     **/
-    computeServing(g: number, roundN?: number) {
+    computeServing(amount: math.Unit, roundN?: number) {
         // get all servings with metric size units
         const metricServings = this.servings?.filter(serving => serving.metricServingAmount);
 
@@ -49,7 +49,7 @@ export default class Food {
         const foundServing = metricServings?.[0];
 
         // return computation for found serving
-        return foundServing.computeServing(g, roundN);
+        return foundServing.computeServing(amount, roundN);
     }
 
     toJson() {

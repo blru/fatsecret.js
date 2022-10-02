@@ -151,14 +151,12 @@ export default class Serving {
     /**
     * @param {number} roundN - The number of decimals to round values to.
     **/
-    computeServing(g: number, roundN?: number) {
+    computeServing(amount: math.Unit, roundN?: number) {
         // ensure serving has amount in metric units
         if (!this.metricServingAmount) return;
 
         // compute factor to multiply values by
-        const multiplyFactor = math
-            .unit(g, "g")
-            .divide(this.metricServingAmount)
+        const multiplyFactor = amount.divide(this.metricServingAmount);
 
         // create function for multiplying units to fit factor
         const factorUnit = (unit?: math.Unit) => {
@@ -176,8 +174,8 @@ export default class Serving {
         };
 
         return new Serving({
-            metricServingAmount: g,
-            metricServingUnit: "g",
+            metricServingAmount: amount.toNumber(),
+            metricServingUnit: amount.formatUnits(),
             numberOfUnits: 1,
 
             calories: factorUnit(this.calories),
