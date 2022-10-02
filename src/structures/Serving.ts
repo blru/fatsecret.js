@@ -201,7 +201,7 @@ export default class Serving {
     }
 
     // serialize
-    toJson() {
+    toJSON() {
         return {
             id: this.id,
             description: this.description,
@@ -235,7 +235,7 @@ export default class Serving {
     }
 
     // deserialize
-    static fromJson(object: any) {
+    static fromJSON(object: any) {
         // ensure object isn't null or undefined
         object = object || {};
 

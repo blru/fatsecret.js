@@ -1,6 +1,6 @@
 {
   "name": "fatsecret.js",
-  "version": "1.0.8",
+  "version": "1.0.9",
   "description": "Fatsecret.js is an unofficial API wrapper for the FatSecret nutrition database.",
   "main": "./lib/main.js",
   "types": "./lib/main.d.ts",

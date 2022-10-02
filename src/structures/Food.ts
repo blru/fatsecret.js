@@ -52,7 +52,7 @@ export default class Food {
         return foundServing.computeServing(amount, roundN);
     }
 
-    toJson() {
+    toJSON() {
         // return instance of Food
         return {
             id: this.id,
@@ -62,11 +62,11 @@ export default class Food {
             url: this.url,
 
             // map servings to instance of Serving
-            servings: this.servings?.map((serving) => serving.toJson())
+            servings: this.servings?.map((serving) => serving.toJSON())
         };
     }
 
-    static fromJson(object: any) {
+    static fromJSON(object: any) {
         // ensure object isn't null or undefined
         object = object || {}
 
@@ -88,7 +88,7 @@ export default class Food {
 
             // map servings to instance of Serving
             servings: valueToArray(servings)
-                .map((serving) => Serving.fromJson(serving))
+                .map((serving) => Serving.fromJSON(serving))
         });
     }
 
